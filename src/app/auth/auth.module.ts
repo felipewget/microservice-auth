@@ -6,6 +6,7 @@ import { AuthEntity } from './auth.entity';
 import { AuthService } from './auth.service';
 
 @Module({
+    exports: [AuthService],
     imports: [TypeOrmModule.forFeature([AuthEntity]), SessionModule],
     controllers: [AuthController],
     providers: [AuthService]

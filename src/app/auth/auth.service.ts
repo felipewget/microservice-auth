@@ -116,4 +116,38 @@ export class AuthService {
 
     }
 
+    async getAuthByEmail(email: string, application: string) {
+
+        return await this.authRepository.findOne({
+            email: email,
+            application: application,
+            deletedAt: null
+        })
+
+    }
+
+    async getAuthById(id: number, application: string) {
+
+        return await this.authRepository.findOne({
+            id: id,
+            application: application,
+            deletedAt: null
+        })
+
+    }
+
+    async updatePasswordByAuthId(id: number, application: string, password: string) {
+
+        let auth = await this.authRepository.findOne({
+            id: id,
+            application: application,
+            deletedAt: null
+        })
+
+        auth.password = password;
+
+        return await this.authRepository.save(auth);
+
+    }
+
 }

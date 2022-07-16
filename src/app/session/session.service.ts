@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SessionEntity } from './session.entity';
 import { randomBytes } from 'crypto';
-import { AuthTokenDto } from './dto/auth-token.dto';
 
 @Injectable()
 export class SessionService {

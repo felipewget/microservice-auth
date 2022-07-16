@@ -19,6 +19,7 @@ import { RecoverPasswordModule } from './app/recover-password/recover-password.m
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: process.env.IS_PRODUCTION,
+      logging: false
     }),
     AuthModule, AnalyticsModule, SessionModule, RecoverPasswordModule
   ],
