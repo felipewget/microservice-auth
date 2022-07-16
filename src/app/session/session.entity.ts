@@ -1,10 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
 
 @Entity({ name: 'sessions' })
 export class SessionEntity {
 
     @PrimaryGeneratedColumn()
     id: number
+
+    @Column()
+    token: string
 
     @Column()
     authId: number
@@ -27,7 +30,7 @@ export class SessionEntity {
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @CreateDateColumn({ name: 'deleted_at' })
+    @DeleteDateColumn({ name: 'deleted_at' })
     deletedAt: Date;
 
 }

@@ -3,6 +3,7 @@ import { getCustomRepositoryToken, getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuthEntity } from './auth.entity';
 import { AuthService } from './auth.service';
+import { RegisterAuthDto } from './dto/register-auth.dto';
 
 
 describe('AuthService', () => {
@@ -28,4 +29,24 @@ describe('AuthService', () => {
     expect(auth).toBeDefined();
     expect(authRepository).toBeDefined();
   });
+
+  describe('register a outh', () => {
+    it('Should register a new auth', async () => {
+
+      // Arrange
+      let data: RegisterAuthDto = {
+        "email": "felipe.wget@gmail.com",
+        "password": "123456",
+        "application": ""
+      }
+
+      // Act
+      const result = await auth.registerAuth(data);
+
+      // Assert
+      expect(result).toBeDefined();
+
+    })
+  })
+
 });

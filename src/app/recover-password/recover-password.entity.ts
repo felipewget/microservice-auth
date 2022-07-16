@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
 @Entity({ name: 'recover_password_tokens' })
 export class RecoverPasswordEntity {
@@ -21,7 +21,7 @@ export class RecoverPasswordEntity {
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @CreateDateColumn({ name: 'deleted_at' })
+    @DeleteDateColumn({ name: 'deleted_at' })
     deletedAt: Date;
 
 }
