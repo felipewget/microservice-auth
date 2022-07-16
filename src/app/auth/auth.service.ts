@@ -11,10 +11,10 @@ export class AuthService {
         private readonly authRepository: Repository<AuthEntity>
     ) { }
 
-    authenticate(login: string, password: string) { }
+    // authenticate(login: string, password: string) { }
 
-    register() { }
+    // register() { }
 
-    removeAuth(login: string, password: string) { }
+    // removeAuth(login: string, password: string) { }
 
 }
