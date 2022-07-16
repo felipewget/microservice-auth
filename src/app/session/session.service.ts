@@ -38,27 +38,72 @@ export class SessionService {
 
     }
 
-    removeSession() { }
-
-    async getActiveSession(authTokenDto: AuthTokenDto) {
+    async removeSession(authToken: string) {
 
         let session = await this.sessionRepository.findOne({
-            token: authTokenDto.auth_token,
+            token: authToken,
+            deletedAt: null
+        });
+
+        if (!session) {
+
+            throw new HttpException({
+                error: "INVALID_SESSION",
+                token: authToken
+            }, HttpStatus.UNAUTHORIZED)
+
+        }
+
+        session.deletedAt = new Date();
+
+        return await this.sessionRepository.save(session);
+
+    }
+
+    async removeAuthSessions(authToken: string) {
+
+        let session = await this.sessionRepository.findOne({
+            token: authToken,
+            deletedAt: null
+        });
+
+        if (!session) {
+
+            throw new HttpException({
+                error: "INVALID_SESSION",
+                token: authToken
+            }, HttpStatus.UNAUTHORIZED)
+
+        }
+
+        return await this.sessionRepository.update({
+            authId: session.authId,
+            deletedAt: null,
+        }, {
+            deletedAt: new Date()
+        });
+
+    }
+
+    async getActiveSession(authToken: string) {
+
+        let session = await this.sessionRepository.findOne({
+            token: authToken,
             deletedAt: null
         });
 
         return {
             authenticated: session?.authId ? true : false,
             authId: session?.authId ? session.authId : null,
-            auth_token: authTokenDto.auth_token
+            auth_token: authToken
         }
 
     }
 
-    async listActiveSessions(authTokenDto: AuthTokenDto) {
+    async listActiveSessions(authToken: string) {
 
         let session = await this.sessionRepository.findOne({
-            token: authTokenDto.auth_token,
+            token: authToken,
             deletedAt: null
         });
 
@@ -74,6 +119,22 @@ export class SessionService {
             authId: session.authId,
             deletedAt: null
         });
+
+    }
+
+    treatHeaderAuthorizarion(headerAuthorization: string) {
+
+        if (!(headerAuthorization && headerAuthorization.length > 15)) {
+
+            throw new HttpException({
+                error: `INVALID_AUTHENTICATION`,
+            }, HttpStatus.BAD_REQUEST);
+
+        }
+
+        let token = headerAuthorization.replace('Bearer', '').trim()
+
+        return token;
 
     }
 

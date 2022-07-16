@@ -5,20 +5,20 @@
 
 ### Logout - Remove Session
 
-DELETE http://localhost/session HTTP/1.1
-Authorization: Bearer {TOKEN}
+DELETE http://localhost:3000/session HTTP/1.1
+Authorization: Bearer 28b0b9138c3b55c59fda51b062fd1494c7f9422c17ce6a8251394c284e3fb8e4127fe6c02d62a0c069943e7409b890bf31002d8c6ced909246d322304d5e3d53
 
 ### Logout All - Remove All Sessions
 
-DELETE http://localhost/session/all HTTP/1.1
-Authorization: Bearer {TOKEN}
+DELETE http://localhost:3000/session/all HTTP/1.1
+Authorization: Bearer 28b0b9138c3b55c59fda51b062fd1494c7f9422c17ce6a8251394c284e3fb8e4127fe6c02d62a0c069943e7409b890bf31002d8c6ced909246d322304d5e3d53
 
 ### List My Sessions
 
-GET http://localhost/session/all HTTP/1.1
-Authorization: Bearer {TOKEN}
+GET http://localhost:3000/session/all HTTP/1.1
+Authorization: Bearer 28b0b9138c3b55c59fda51b062fd1494c7f9422c17ce6a8251394c284e3fb8e4127fe6c02d62a0c069943e7409b890bf31002d8c6ced909246d322304d5e3d53
 
 ### Check Session
 
-GET http://localhost/session HTTP/1.1
-Authorization: Bearer {TOKEN}
+GET http://localhost:3000/session HTTP/1.1
+Authorization: Bearer 28b0b9138c3b55c59fda51b062fd1494c7f9422c17ce6a8251394c284e3fb8e4127fe6c02d62a0c069943e7409b890bf31002d8c6ced909246d322304d5e3d53
