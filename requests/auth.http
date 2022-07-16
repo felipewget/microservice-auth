@@ -1,0 +1,38 @@
+#################################################################################################
+### This requests use REST Client                                                             ###
+### Install Componente: https://marketplace.visualstudio.com/items?itemName=humao.rest-client ###
+#################################################################################################
+
+### Create Auth
+
+POST http://localhost:3000/auth/register HTTP/1.1
+content-type: application/json
+
+{
+    "email": "felipe.wget@gmail.com",
+    "password": "123456",
+    "application": ""
+}
+
+### Login
+
+POST http://localhost:3000/auth HTTP/1.1
+content-type: application/json
+
+{
+    "email": "felipe.wget@gmail.com",
+    "password": "123456",
+    "application": ""
+}
+
+### Update Password
+
+PATCH http://localhost:3000/auth/change-password HTTP/1.1
+content-type: application/json
+
+{
+    "email": "felipe.wget@gmail.com",
+    "password": "123456",
+    "application": "",
+    "new-password": ""
+}

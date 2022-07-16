@@ -1,0 +1,24 @@
+#################################################################################################
+### This requests use REST Client                                                             ###
+### Install Componente: https://marketplace.visualstudio.com/items?itemName=humao.rest-client ###
+#################################################################################################
+
+### Logout - Remove Session
+
+DELETE http://localhost/session HTTP/1.1
+Authorization: Bearer {TOKEN}
+
+### Logout All - Remove All Sessions
+
+DELETE http://localhost/session/all HTTP/1.1
+Authorization: Bearer {TOKEN}
+
+### List My Sessions
+
+GET http://localhost/session/all HTTP/1.1
+Authorization: Bearer {TOKEN}
+
+### Check Session
+
+GET http://localhost/session HTTP/1.1
+Authorization: Bearer {TOKEN}
