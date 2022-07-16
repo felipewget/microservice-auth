@@ -16,3 +16,6 @@ Este microserviço terá as seguintes tarefas:
   - Usuários cadastrados
   - Sessões Ativas
 - Testes unitários
+- Recuperar senha
+  - Enviar Token de recuperacao de senha
+  - Recuperar senha
