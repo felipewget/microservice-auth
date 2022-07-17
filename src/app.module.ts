@@ -5,6 +5,8 @@ import { SessionModule } from './app/session/session.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RecoverPasswordModule } from './app/recover-password/recover-password.module';
+import { MailService } from './app/mail/mail.service';
+import { MailModule } from './app/mail/mail.module';
 
 @Module({
   imports: [
@@ -21,9 +23,9 @@ import { RecoverPasswordModule } from './app/recover-password/recover-password.m
       synchronize: process.env.IS_PRODUCTION,
       logging: false
     }),
-    AuthModule, AnalyticsModule, SessionModule, RecoverPasswordModule
+    AuthModule, AnalyticsModule, SessionModule, RecoverPasswordModule, MailModule
   ],
   controllers: [],
-  providers: [],
+  providers: [MailService],
 })
 export class AppModule { }

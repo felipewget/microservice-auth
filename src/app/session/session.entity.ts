@@ -9,7 +9,7 @@ export class SessionEntity {
     @Column()
     token: string
 
-    @Column()
+    @Column({ name: 'auth_id' })
     authId: number
 
     @Column({ default: '' })

@@ -1,17 +1,25 @@
 import { Body, Controller, Get, Patch, Post, Query } from '@nestjs/common';
 import { query } from 'express';
+import { MailService } from '../mail/mail.service';
 import { RecoverPasswordService } from './recover-password.service';
 
 @Controller('recover-password')
 export class RecoverPasswordController {
 
-    constructor(private readonly recoverPassword: RecoverPasswordService) { }
+    constructor(
+        private readonly recoverPassword: RecoverPasswordService,
+        private readonly mailService: MailService) { }
 
     @Post()
     async sendRecoveryToken(@Body() body) {
 
         let recoveryData = await this.recoverPassword.registerRecoveryToken(body);
-        // @TODO Send Email
+        if (recoveryData.email) {
+            this.mailService.sendEmail({
+                type: 'SEND_RECOVERY_TOKEN',
+                email: recoveryData.email
+            });
+        }
         return recoveryData; // remove this response
 
     }

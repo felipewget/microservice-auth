@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
+import { Injectable, Logger } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuthService } from '../auth/auth.service';
@@ -18,22 +18,25 @@ export class AnalyticsService {
         private readonly authService: AuthService,
     ) { }
 
+    private readonly logger = new Logger(AnalyticsService.name);
+
     getReport() {
 
     }
 
-    @Cron('45 * * * * *')
+    @Cron(CronExpression.EVERY_DAY_AT_1AM)
     async setDailyReport() {
+
+        this.logger.debug('Called every day at 10AM');
 
         let totalAuths = await this.authService.countTotalAuths()
         let totalUpdatePassword = await this.authService.countTotalAuthsWithPasswordUpdated();
         let totalActiveSessions = await this.sessionService.analyticsCounTotalActiveSessions();
         let totalActiveSessionsByAuths = await this.sessionService.analyticsCounTotalActiveAuths();
-        console.log(totalActiveSessionsByAuths)
         let totalRecoveryTokens = await this.recoverPasswordService.analyticsCounTotalRecoveryTokens();
         let totalRecoveryTokenByAuth = await this.recoverPasswordService.analyticsCounTotalRecoveryTokensByAuth();
 
-        return this.analyticsRepository.save({
+        await this.analyticsRepository.save({
             totalAuths: totalAuths,
             totalActiveSessions: totalActiveSessions,
             totalActiveSessionsByAuth: totalActiveSessionsByAuths,
@@ -41,6 +44,8 @@ export class AnalyticsService {
             totalRecoveryToken: totalRecoveryTokens,
             totalRecoveryTokenByAuth: totalRecoveryTokenByAuth,
         })
+
+        this.recoverPasswordService.removeExpiredRecoveryTokens();
 
     }
 

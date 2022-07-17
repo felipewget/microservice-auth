@@ -15,6 +15,9 @@ export class AuthEntity {
     @Column({ default: '' })
     application: string;
 
+    @Column({ type: "json", nullable: true })
+    metadata: object;
+
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 

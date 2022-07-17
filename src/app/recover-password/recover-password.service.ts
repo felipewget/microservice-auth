@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, MoreThan, Repository } from 'typeorm';
+import { getConnection, LessThan, MoreThan, Repository } from 'typeorm';
 import { RecoverPasswordEntity } from './recover-password.entity';
 import { randomBytes } from 'crypto';
 import { SendRecoveryTokenDto } from './dto/send-recovery-token.dto';
@@ -50,7 +50,7 @@ export class RecoverPasswordService {
 
     async getValidRecoveryToken(getValidRecoveryToken: GetValidRecoveryTokenDto) {
 
-        let minutesToTokenExpire = 2;
+        let minutesToTokenExpire = 15;
 
         let recoverTokenRecord = await this.recoveryPasswordRepository.findOne({
             token: getValidRecoveryToken.token,
@@ -73,11 +73,22 @@ export class RecoverPasswordService {
 
     }
 
-    removeExpiredRecoveryTokens() { }
+    removeExpiredRecoveryTokens() {
+
+        let minutesToTokenExpire = 15;
+
+        this.recoveryPasswordRepository.update({
+            createdAt: LessThan(new Date(new Date().getTime() + minutesToTokenExpire * 100000)),
+            deletedAt: null,
+        }, {
+            deletedAt: new Date()
+        });
+
+    }
 
     async updatePasswordByRecoveryToken(updatePasswordRecoveryTokenDto: UpdatePasswordRecoveryTokenDto) {
 
-        let minutesToTokenExpire = 2;
+        let minutesToTokenExpire = 15;
 
         let authRecord = await this.getValidRecoveryToken({
             email: updatePasswordRecoveryTokenDto.email,
@@ -90,7 +101,6 @@ export class RecoverPasswordService {
                 error: `INVALID_TOKEN`
             }, HttpStatus.INTERNAL_SERVER_ERROR)
         }
-        console.log(authRecord)
 
         let update = await this.authService.updatePasswordByAuthId(authRecord.id, updatePasswordRecoveryTokenDto.application, updatePasswordRecoveryTokenDto.new_password);
 
@@ -118,12 +128,13 @@ export class RecoverPasswordService {
 
     async analyticsCounTotalRecoveryTokensByAuth() {
 
-        return await getConnection()
+        return (await getConnection()
             .getRepository(RecoverPasswordEntity)
             .createQueryBuilder()
+            .select('auth_id')
             .where("deleted_at IS NULL")
-            .groupBy("authId")
-            .getCount();
+            .groupBy('auth_id')
+            .getRawMany()).length;
 
     }
 

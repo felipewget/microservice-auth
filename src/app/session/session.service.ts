@@ -147,14 +147,13 @@ export class SessionService {
 
     async analyticsCounTotalActiveAuths() {
 
-        return await getConnection()
+        return (await getConnection()
             .getRepository(SessionEntity)
             .createQueryBuilder()
-            .select("`authId`")
+            .select('auth_id')
             .where("deleted_at IS NULL")
-            .groupBy("`authId`")
-            .getCount();
-
+            .groupBy('auth_id')
+            .getRawMany()).length;
 
     }
 

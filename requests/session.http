@@ -11,12 +11,12 @@ Authorization: Bearer 23f16990539e8bb5b7933a1febd56ca8750b289861496a804a908288d4
 ### Logout All - Remove All Sessions
 
 DELETE http://localhost:3000/session/all HTTP/1.1
-Authorization: Bearer b1a4a389699f0be4813c1fb78593019d31b925503781f8ac0e6efa9bd289cb1130efeeedcc335d75590a92055cd60a4e65f41270c5e340804cd948a9ad6e4d5e
+Authorization: Bearer bd267aed8a42c476ce8476e8acb0e6e920667bbe6471e3d317a54f6b532f419dfca1782da3629a394884dcef8ea0e952083f56ec72f1fe2625836cedf68a178f
 
 ### List My Sessions
 
 GET http://localhost:3000/session/all HTTP/1.1
-Authorization: Bearer 28b0b9138c3b55c59fda51b062fd1494c7f9422c17ce6a8251394c284e3fb8e4127fe6c02d62a0c069943e7409b890bf31002d8c6ced909246d322304d5e3d53
+Authorization: Bearer 7ddf138cf37cd361192b8bbe6f0f1a2d500a64d5033f5e9f1181adcd2d8528e749b7a230f9a7277b04a73621065cd987567abb1dc7a9d8b7e12a1b47562f1f8f
 
 ### Check Session
 
