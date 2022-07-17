@@ -6,6 +6,7 @@ import { RecoverPasswordEntity } from './recover-password.entity';
 import { RecoverPasswordService } from './recover-password.service';
 
 @Module({
+  exports: [RecoverPasswordService],
   imports: [TypeOrmModule.forFeature([RecoverPasswordEntity]), AuthModule],
   controllers: [RecoverPasswordController],
   providers: [RecoverPasswordService]

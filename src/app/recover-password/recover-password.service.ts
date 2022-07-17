@@ -1,14 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LessThan, MoreThan, Repository } from 'typeorm';
+import { getConnection, MoreThan, Repository } from 'typeorm';
 import { RecoverPasswordEntity } from './recover-password.entity';
 import { randomBytes } from 'crypto';
 import { SendRecoveryTokenDto } from './dto/send-recovery-token.dto';
 import { AuthService } from '../auth/auth.service';
 import { GetValidRecoveryTokenDto } from './dto/get-valid-recovery-token.dto';
 import { UpdatePasswordRecoveryTokenDto } from './dto/update-password-recovery-token.dto';
-
-import { getDateWithoutTimezone } from 'src/utils/timeUtils.util';
 
 @Injectable()
 export class RecoverPasswordService {
@@ -57,7 +55,7 @@ export class RecoverPasswordService {
         let recoverTokenRecord = await this.recoveryPasswordRepository.findOne({
             token: getValidRecoveryToken.token,
             deletedAt: null,
-            createdAt: MoreThan(new Date(getDateWithoutTimezone().getTime() - minutesToTokenExpire * 60000))
+            createdAt: MoreThan(new Date(this.getDateWithoutTimezone().getTime() - minutesToTokenExpire * 60000))
         })
 
         if (!recoverTokenRecord) {
@@ -107,6 +105,33 @@ export class RecoverPasswordService {
         await this.recoveryPasswordRepository.save(recoverTokenRecord);
 
         return update;
+
+    }
+
+    async analyticsCounTotalRecoveryTokens() {
+
+        return await this.recoveryPasswordRepository.count({
+            deletedAt: null
+        })
+
+    }
+
+    async analyticsCounTotalRecoveryTokensByAuth() {
+
+        return await getConnection()
+            .getRepository(RecoverPasswordEntity)
+            .createQueryBuilder()
+            .where("deleted_at IS NULL")
+            .groupBy("authId")
+            .getCount();
+
+    }
+
+    getDateWithoutTimezone = () => {
+
+        let offset = new Date().getTimezoneOffset() * 60000;
+        let utc = new Date().getTime() + offset;
+        return new Date(utc);
 
     }
 

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Ip } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getConnection } from 'typeorm';
 import { SessionEntity } from './session.entity';
 import { randomBytes } from 'crypto';
 
@@ -134,6 +134,27 @@ export class SessionService {
         let token = headerAuthorization.replace('Bearer', '').trim()
 
         return token;
+
+    }
+
+    async analyticsCounTotalActiveSessions() {
+
+        return await this.sessionRepository.count({
+            deletedAt: null
+        })
+
+    }
+
+    async analyticsCounTotalActiveAuths() {
+
+        return await getConnection()
+            .getRepository(SessionEntity)
+            .createQueryBuilder()
+            .select("`authId`")
+            .where("deleted_at IS NULL")
+            .groupBy("`authId`")
+            .getCount();
+
 
     }
 

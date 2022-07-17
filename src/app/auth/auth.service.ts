@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, IsNull, Repository } from 'typeorm';
 import { AuthEntity } from './auth.entity';
 import { RegisterAuthDto } from './dto/register-auth.dto';
 import { RemoveAuthDto } from './dto/remove-auth.dto';
@@ -147,6 +147,23 @@ export class AuthService {
         auth.password = password;
 
         return await this.authRepository.save(auth);
+
+    }
+
+    async countTotalAuths() {
+
+        return this.authRepository.count({
+            deletedAt: null
+        })
+
+    }
+
+    async countTotalAuthsWithPasswordUpdated() {
+
+        return this.authRepository.count({
+            updatedAt: Not(IsNull()),
+            deletedAt: null
+        })
 
     }
 

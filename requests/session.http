@@ -6,12 +6,12 @@
 ### Logout - Remove Session
 
 DELETE http://localhost:3000/session HTTP/1.1
-Authorization: Bearer 28b0b9138c3b55c59fda51b062fd1494c7f9422c17ce6a8251394c284e3fb8e4127fe6c02d62a0c069943e7409b890bf31002d8c6ced909246d322304d5e3d53
+Authorization: Bearer 23f16990539e8bb5b7933a1febd56ca8750b289861496a804a908288d4a5499665097016e67edfc3a631d2eb3d58585531fe8bc1d6528464e079468a61c4e9a2
 
 ### Logout All - Remove All Sessions
 
 DELETE http://localhost:3000/session/all HTTP/1.1
-Authorization: Bearer 28b0b9138c3b55c59fda51b062fd1494c7f9422c17ce6a8251394c284e3fb8e4127fe6c02d62a0c069943e7409b890bf31002d8c6ced909246d322304d5e3d53
+Authorization: Bearer b1a4a389699f0be4813c1fb78593019d31b925503781f8ac0e6efa9bd289cb1130efeeedcc335d75590a92055cd60a4e65f41270c5e340804cd948a9ad6e4d5e
 
 ### List My Sessions
 
