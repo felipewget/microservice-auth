@@ -6,6 +6,7 @@ import { RegisterAuthDto } from './dto/register-auth.dto';
 import { RemoveAuthDto } from './dto/remove-auth.dto';
 import { AuthenticateDto } from './dto/authenticate.dto';
 import { SessionService } from '../session/session.service';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -23,7 +24,7 @@ export class AuthService {
 
         let auth = await this.authRepository.findOne({
             email: authenticateDto.email,
-            password: authenticateDto.password,
+            password: crypto.createHmac('sha256', authenticateDto.password).digest('hex'),
             application: authenticateDto.application,
             deletedAt: null,
         });
@@ -64,6 +65,8 @@ export class AuthService {
 
         }
 
+        registerAuthDto.password = crypto.createHmac('sha256', registerAuthDto.password).digest('hex');
+
         return await this.authRepository.save(registerAuthDto)
 
     }
@@ -83,7 +86,7 @@ export class AuthService {
 
         let auth = await this.authRepository.findOne(is_there_auth.id);
 
-        if (removeAuth.password != auth.password) {
+        if (crypto.createHmac('sha256', removeAuth.password).digest('hex') != auth.password) {
 
             throw new HttpException({
                 error: `INVALID_PASSWORD`,
@@ -150,7 +153,7 @@ export class AuthService {
             deletedAt: null
         })
 
-        auth.password = password;
+        auth.password = crypto.createHmac('sha256', password).digest('hex');
 
         return await this.authRepository.save(auth);
 

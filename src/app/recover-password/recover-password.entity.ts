@@ -9,7 +9,7 @@ export class RecoverPasswordEntity {
     @Column({ name: 'auth_id' })
     authId: number;
 
-    @Column({ length: 80 })
+    @Column({ length: 150 })
     token: string;
 
     @Column({ default: '', length: 50 })

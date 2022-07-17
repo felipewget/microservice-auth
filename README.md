@@ -5,33 +5,36 @@
 
 <img align="right" alt="Felipe-pic" height="150" style="border-radius:50px;" src="https://cdn.discordapp.com/attachments/982734709995995189/982738445736755270/image.png?width=676&height=676">          
 
-Você dev. já trabalhou com vários projetos diferentes e teve que fazer autenticação em todos eles? então porquê não subir um microserviço de autenticação que vai se conectar a todos os seus projetos e ao invés de ter que implementar uma autenticação em cada novo sistema, apenas precisa subir esse projeto uma vez, integrar com ele e usá-lo, não precisa implementar toda a parte de autenticação e uma melhoria nesse serviço representa uma melhoria de autenticação em todos os seus projetos. Esse projeto ta tem toda a parte de criação de atenticação, sessões, relatórios e recuração de senha, esse projeto é um microserviço então ele é pequeno e bem focado no que se propõe, "autenticação", o que facilita a manutenção.
+Are you a developer? already with several different projects and had to authenticate to all of them? Why you don't up a authenticator microservice that will connect with every your projetcs that will connect to all your projects and instead of having to implement a new authentication applicationto to each new application? 
+you need up this project only one time, integrate with your systems and use it, you don't need implement all authetication part and a new improve in this project will be a new improve for all your projects. Microservice Auth have all part of authentication in a application focused to resolve auth, so this project is small and
+easier to manutence.
 
-```Esse projeto é OpenSouce então sinta-se a vontade pra melhorá-lo.```
+```This is a Open Source project, be free to improve it.```
 
-## Este projeto usa Nest com Typescript e TypeORM e é dividido nos seguintes módulos:
+## This project use Nest with Typescript and TypeORM and is divided in this parts:
 
 
     .
     ├── src
     ├──── app
-    ├────── analytics (Responsável pelos relatórios)
-    ├────── auth (Responsável por criar/autenticar usuários)
-    ├────── recover-password (Responsável por criar e enviar tokens/validar se o tokens/atualizar senha do usuário pelo token de recuperacao)
-    ├────── session (Responsável por armazenar sessões dos usuários logados, sessões essas que podem ser consultadas pra validar se um usuário está conectado)
-    ├────── mail (Módulo chamado quando há eventos de criaçao de usuário/auth ou envio de token de recuperação de senha, a chamada deverá chamar outro microserviço pois não é a função desse microserviço)
+    ├────── analytics (Responsable for reports)
+    ├────── auth (Responsable for create/auth users)
+    ├────── recover-password (Responsable for create and send recovery tokens/validate recovery tokens/update password by recovery token)
+    ├────── session (Responsable for create and storage the sessions of logged users, this sessions can be consulted to validate if a user is connected)
+    ├────── mail (This module is called when there are events to send email, like create a new auth/user or to send recovery token to email, the proccess will do in other microsservice because be a email sender doens't a function to this microsservice)
     └── README.md
     
 ```
-Implementações futuras:
-- Colocar no .env se o usuário pode ter apenas uma sessão ativa e quando loga, desloga as outra sessões
-- Authenticação por QRCode
+Futuro implementations:
+- Put in the .env if user can have only a active and logout other session when have a new login
+- Auth by QRCode
+- Block user(ban)
 ```
 
 ## Requests
 
-<p>Na pasta requests há exemplos de requisições, que podem ser disparadas pelo próprio VisualCode, para usá-los basta instalar a extenção "REST Client"</p>
-<p>Link para a extenção https://marketplace.visualstudio.com/items?itemName=humao.rest-client</p>
+<p>In request folder there are examples if requests that can be dispatched by Visual Code, to use you need instal the extension "REST Client"</p>
+<p>Link to extension https://marketplace.visualstudio.com/items?itemName=humao.rest-client</p>
 
 
     .
@@ -42,10 +45,10 @@ Implementações futuras:
     └──── recover-password.http
 
 
-### Lista de funcionalidades
+### Features list
 
 ```
-Parâmetro "application" será utilizado pra validar qual a aplicação a pessoa esta se referindo
+"application" param weill be utilized to validate who application the person is referencing
 ex: application: "gmail"|application: "easychannel"|application: "rede_social"
 ```
 
@@ -56,30 +59,33 @@ ex: application: "gmail"|application: "easychannel"|application: "rede_social"
 
 ## Session
 
-- Valida um token de sessão e pra qual usuário ele é
-- Lista todos os tokens ativos do usuário
-- Desloga da sessão atual
-- Desloga de todas as sessões do usuário
+- Validate a session token and who is session token user
+- List all session token by user with token
+- Logout current user session
+- Logout all user sessions
 
 ## Recover Password
 
-- Cria e envia o token de recuperação de senha para o e-mail
-- Valida se o token de recuperação de senha é válido
-- Atualiza a senha do auth/usuário baseado no token de recuperação válido
+- Create and send the recovery token to recover password to e-mail
+- Validate if the recovery token is valid
+- Update user/auth password based in recovery token
 
 ## Analytics
 
-- Relatório no momento
-- Lista relatórios diários
+- Momento report
+- List daily reports
 
 ```
-Um registro na tabela analytics é gerado todos os dias a 1 da manhã, assim é possível ter um histórico de novos usuários,
-sessões ativas, sessões por usuário e muito mais
+A record on analytics table is renerated all days at 1AM, because it is possible have a historic of new users, active sessions, sessions by user and more.
 ```
 
-## Como vincular um login à um usuário no meu sistema
+## How to vinculate a microsservice auth login with my system?
 
-Geralmente quando se cria um sistema o usuário tem os dados de autenticação como senha por exemplo, ao invés desses dados ficarem na tabela de usuários, apenas terá um auth_id vinculado ao microsservice-auth que deverá ser criado quando o usuário se cadastrar e ao realizar o login no microsservice-auth, retornará um auth_id que estará vinculado a um usuário
+Generaly when we create a system, the user have authentication proprierty(password for example), instead this data stay in user table we put only auth_id and this auth_id in vinculated with a microsservice-auth that have to be created when the user registar on your system/logou or realize login, when realize login, de microsservice-auth
+will return the auth_id thar will be vinculated to a user in your system.
 
-![alt text](http://url/to/img.png)
+<img src="readme-files/ilustration.png" width="50" margin="10" />
 
+<hr />
+
+Opinions, criticisms, suggestions, opinions are welcome, just send them to my email: ```felipe.wget.@gmail.com```

@@ -25,7 +25,7 @@ content-type: application/json
 
 {
     "email": "felipe.wgxxet@gmail.com",
-    "password": "asdsadsadsadsaas",
+    "password": "123456",
     "application": "rede"
 }
 
@@ -35,8 +35,8 @@ PATCH http://localhost:3000/auth/change-password HTTP/1.1
 content-type: application/json
 
 {
-    "email": "felipe.wget@gmail.com",
-    "password": "123456",
+    "email": "felipe.wgxxet@gmail.com",
+    "password": "asdsadsadsadsaas",
     "application": "",
     "new-password": ""
 }
@@ -47,7 +47,7 @@ DELETE http://localhost:3000/auth HTTP/1.1
 content-type: application/json
 
 {
-    "email": "felipe.wget@gmail.com",
-    "password": "123456",
-    "application": ""
+    "email": "felipe.wgxxet@gmail.com",
+    "password": "asdsadsadsadsaas",
+    "application": "rede"
 }
