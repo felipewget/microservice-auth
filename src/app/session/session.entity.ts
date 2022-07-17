@@ -6,13 +6,13 @@ export class SessionEntity {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({ length: 150 })
     token: string
 
     @Column({ name: 'auth_id' })
     authId: number
 
-    @Column({ default: '' })
+    @Column({ default: '', length: 50 })
     application: string;
 
     @Column({ default: 'user', enum: ['user', 'api'] })

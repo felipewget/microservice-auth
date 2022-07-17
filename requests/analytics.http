@@ -10,9 +10,9 @@ content-type: application/json
 
 {}
 
-### Set Daily Report
+### Get Daily Report
 
-POST http://localhost:3000/analytics/daily HTTP/1.1
+GET http://localhost:3000/analytics/daily HTTP/1.1
 content-type: application/json
 
 {}

@@ -59,6 +59,17 @@ export class SessionService {
 
     }
 
+    async removeAuthSessionsByAuthId(authId: number) {
+
+        return await this.sessionRepository.update({
+            authId: authId,
+            deletedAt: null,
+        }, {
+            deletedAt: new Date()
+        });
+
+    }
+
     async removeAuthSessions(authToken: string) {
 
         let session = await this.sessionRepository.findOne({
@@ -75,12 +86,7 @@ export class SessionService {
 
         }
 
-        return await this.sessionRepository.update({
-            authId: session.authId,
-            deletedAt: null,
-        }, {
-            deletedAt: new Date()
-        });
+        return await this.removeAuthSessionsByAuthId(session.authId);
 
     }
 

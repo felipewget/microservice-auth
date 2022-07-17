@@ -20,14 +20,7 @@ export class AnalyticsService {
 
     private readonly logger = new Logger(AnalyticsService.name);
 
-    getReport() {
-
-    }
-
-    @Cron(CronExpression.EVERY_DAY_AT_1AM)
-    async setDailyReport() {
-
-        this.logger.debug('Called every day at 10AM');
+    async getReport() {
 
         let totalAuths = await this.authService.countTotalAuths()
         let totalUpdatePassword = await this.authService.countTotalAuthsWithPasswordUpdated();
@@ -36,14 +29,29 @@ export class AnalyticsService {
         let totalRecoveryTokens = await this.recoverPasswordService.analyticsCounTotalRecoveryTokens();
         let totalRecoveryTokenByAuth = await this.recoverPasswordService.analyticsCounTotalRecoveryTokensByAuth();
 
-        await this.analyticsRepository.save({
+        return {
             totalAuths: totalAuths,
             totalActiveSessions: totalActiveSessions,
             totalActiveSessionsByAuth: totalActiveSessionsByAuths,
             totalUpdatePassword: totalUpdatePassword,
             totalRecoveryToken: totalRecoveryTokens,
             totalRecoveryTokenByAuth: totalRecoveryTokenByAuth,
-        })
+        };
+
+    }
+
+    async listDailyReports() {
+        return await this.analyticsRepository.find();
+    }
+
+    @Cron(CronExpression.EVERY_DAY_AT_1AM)
+    async setDailyReport() {
+
+        this.logger.debug('Called every day at 10AM');
+
+        let report = await this.getReport();
+
+        await this.analyticsRepository.save(report)
 
         this.recoverPasswordService.removeExpiredRecoveryTokens();
 

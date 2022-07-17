@@ -9,10 +9,10 @@ export class RecoverPasswordEntity {
     @Column({ name: 'auth_id' })
     authId: number;
 
-    @Column()
+    @Column({ length: 80 })
     token: string;
 
-    @Column({ default: '' })
+    @Column({ default: '', length: 50 })
     application: string;
 
     @CreateDateColumn({ name: 'created_at' })

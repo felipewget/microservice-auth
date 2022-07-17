@@ -13,9 +13,9 @@ POST http://localhost:3000/auth/register HTTP/1.1
 content-type: application/json
 
 {
-    "email": "felipe.wget@gmail.com",
-    "password": "123456",
-    "application": ""
+    "email": "felipe.wgxxet@gmail.com",
+    "password": "asdsadsadsadsaas",
+    "application": "rede"
 }
 
 ### Login
@@ -24,9 +24,9 @@ POST http://localhost:3000/auth HTTP/1.1
 content-type: application/json
 
 {
-    "email": "felipe.wget@gmail.com",
-    "password": "123456",
-    "application": ""
+    "email": "felipe.wgxxet@gmail.com",
+    "password": "asdsadsadsadsaas",
+    "application": "rede"
 }
 
 ### Update Password

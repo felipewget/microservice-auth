@@ -94,7 +94,11 @@ export class AuthService {
 
         auth.deletedAt = new Date();
 
-        return await this.authRepository.save(auth);
+        let deletedAuth = await this.authRepository.save(auth);
+
+        this.sessionService.removeAuthSessionsByAuthId(auth.id);
+
+        return deletedAuth;
 
     }
 
@@ -102,6 +106,8 @@ export class AuthService {
         exist: boolean;
         id: number | null;
     }> {
+
+        console.log(email, application)
 
         let auth = await this.authRepository.findOne({
             email: email,
