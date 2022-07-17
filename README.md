@@ -84,7 +84,9 @@ A record on analytics table is renerated all days at 1AM, because it is possible
 Generaly when we create a system, the user have authentication proprierty(password for example), instead this data stay in user table we put only auth_id and this auth_id in vinculated with a microsservice-auth that have to be created when the user registar on your system/logou or realize login, when realize login, de microsservice-auth
 will return the auth_id thar will be vinculated to a user in your system.
 
-<img src="readme-files/ilustration.png" width="50" margin="10" />
+<p align="center">
+<img src="readme-files/ilustration.png" width="800" margin="10" ali />
+</p>
 
 <hr />
 
