@@ -76,7 +76,8 @@ ex: application: "gmail"|application: "easychannel"|application: "rede_social"
 - List daily reports
 
 ```
-A record on analytics table is renerated all days at 1AM, because it is possible have a historic of new users, active sessions, sessions by user and more.
+A record on analytics table is renerated all days at 1AM, because it is possible 
+have a historic of new users, active sessions, sessions by user and more.
 ```
 
 ## How to vinculate a microsservice auth login with my system?
