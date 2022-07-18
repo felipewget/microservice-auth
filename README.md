@@ -11,7 +11,7 @@ easier to manutence.
 
 ```This is a Open Source project, be free to improve it.```
 
-## This project use Nest with Typescript and TypeORM and is divided in this parts:
+## This project use Nest with Typescript and TypeORM(with PostgreSQL) and is divided in this parts:
 
 
     .
@@ -25,7 +25,7 @@ easier to manutence.
     └── README.md
     
 ```
-Futuro implementations:
+Future implementations:
 - Put in the .env if user can have only a active and logout other session when have a new login
 - Auth by QRCode
 - Block user(ban)
@@ -88,6 +88,10 @@ will return the auth_id thar will be vinculated to a user in your system.
 <p align="center">
 <img src="readme-files/ilustration.png" width="800" margin="10" ali />
 </p>
+
+<hr />
+
+You can use Docker to create a postgreSQL image: docker run --name postgres -e "POSTGRES_PASSWORD=docker!" -p 5432:5432 -d postgres
 
 <hr />
 
